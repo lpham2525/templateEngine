@@ -33,7 +33,7 @@ const employee = responses => {
           </ul>
    </div>
   </div>
-  `}
+  `} //#where the dynamic HTML page ends
 
 writeFileSync('team.html', top)
   .then(() => {
@@ -72,7 +72,7 @@ writeFileSync('team.html', top)
         appendFileSync('team.html', employee(responses))
         if (employee(responses) && done === true) {
           appendFileSync('team.html', `</body>
-                </html >`)
+                </html >`)//#where the dynamic HTML page begins again and inserts  the ending HTML tags
         }
       })
       .catch(err => console.log(err))
