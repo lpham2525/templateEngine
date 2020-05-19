@@ -49,7 +49,7 @@ function start() {
       type: "list",
       name: "role",
       message: "Which role do you want to input?",
-      choices: ["manager", "engineer", "intern", "None. I'm done."]
+      choices: ["manager", "engineer", "intern"]
     }
   ])
     .then(response => {
@@ -71,10 +71,6 @@ function start() {
           questionList = questions(roleQuestion)
           askQuestions(questionList, createIntern)
           break
-        case "None. I'm done.":
-          appendFileSync('./output/team.html',
-            `</body>
-                  </html >`)
         default:
           break
       }
@@ -87,13 +83,13 @@ function createTeam() {
 }
 
 function createManager(responses) {
-  let teammate = new Manager(responses.name, responses.role, responses.id, responses.email, responses.office)
+  let teammate = new Manager(responses.name, responses.title, responses.id, responses.email, responses.office)
   teamHtml += `
   <div class="info">
     <div class="card bg-info mb-3" style="width:18rem;">
       <div class="card-body">      
         <h5 class="card-title text-white bg-info mb-3">${responses.name}
-        <br>Role: ${responses.role}</h5>
+        <br>Role: ${responses.title}</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${responses.id}</li>
             <li class="list-group-item">Email: ${responses.email}</li>
@@ -105,17 +101,17 @@ function createManager(responses) {
   team.push(teammate)
   createTeam()
   appendFileSync('./output/team.html', teamHtml)
-  start()
+  moreTeammates()
 }
 
 function createEngineer(responses) {
-  let teammate = new Engineer(responses.name, responses.role, responses.id, responses.title, responses.email, responses.github)
+  let teammate = new Engineer(responses.name, responses.title, responses.id, responses.title, responses.email, responses.github)
   teamHtml += `
   <div class="info">
     <div class="card bg-info mb-3" style="width:18rem;">
       <div class="card-body">      
         <h5 class="card-title text-white bg-info mb-3">${responses.name}
-        <br>Role: ${responses.role}</h5>
+        <br>Role: ${responses.title}</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${responses.id}</li>
             <li class="list-group-item">Email: ${responses.email}</li>
@@ -127,17 +123,17 @@ function createEngineer(responses) {
   team.push(teammate)
   createTeam()
   appendFileSync('./output/team.html', teamHtml)
-  start()
+  moreTeammates()
 }
 
 function createIntern(responses) {
-  let teammate = new Intern(responses.name, responses.role, responses.id, responses.email, responses.school)
+  let teammate = new Intern(responses.name, responses.title, responses.id, responses.email, responses.school)
   teamHtml += `
   <div class="info">
     <div class="card bg-info mb-3" style="width:18rem;">
       <div class="card-body">      
         <h5 class="card-title text-white bg-info mb-3">${responses.name}
-        <br>Role: ${responses.role}</h5>
+        <br>Role: ${responses.title}</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${responses.id}</li>
             <li class="list-group-item">Email: ${responses.email}</li>
@@ -149,7 +145,7 @@ function createIntern(responses) {
   team.push(teammate)
   createTeam()
   appendFileSync('./output/team.html', teamHtml)
-  start()
+  moreTeammates()
 }
 
 function askQuestions(questionList, roleCreate) {
@@ -172,6 +168,12 @@ function questions(roleQuestion) {
           return "Please type in something for name."
         }
       }
+    },
+    {
+      type: "list",
+      name: "title",
+      message: "Please choose the person's title from the options below.",
+      choices: ["manager", "engineer", "intern"]
     },
     {
       type: "input",
@@ -224,6 +226,31 @@ function getSchool() {
     name: "school",
     message: "Which school does the intern attend?"
   }
+}
+
+function moreTeammates() {
+  prompt([
+    {
+      type: "list",
+      name: "continue",
+      message: "Do you want to input more teammates?",
+      choices: ["Yes", "No. I'm done."]
+    }
+  ])
+    .then(response => {
+      switch (response.continue) {
+        case "Yes":
+          start()
+          break
+        case "No. I'm done.":
+          appendFileSync('./output/team.html',
+            `</body>
+                  </html >`)
+        default:
+          break
+      }
+    })
+    .catch(err => console.log(err))
 }
 
 start()
