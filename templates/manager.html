@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Team</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    body {
+      text-align: center;
+    }
+    
+    .bar{
+    text-align: center;
+    font-size: 80px;
+    background-color: salmon;
+    color: white;
+    width: 100%;
+    height: 100px;
+    }
+
+    .info {
+      margin: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">Team Roster</div>
+    <div class="info">
+    <div class="card bg-info mb-3" style="width:18rem;">
+      <div class="card-body">
+        <h5 class="card-title text-white bg-info mb-3">${responses.name}
+          <br>Role: ${responses.role}</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">ID: ${responses.id}</li>
+          <li class="list-group-item">Title: ${responses.title}</li>
+          <li class="list-group-item">Email: ${responses.email}</li>
+          <li class="list-group-item">Office Number: ${responses.officeNumber}</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+    </body>
+    </html>
