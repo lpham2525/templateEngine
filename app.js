@@ -7,7 +7,7 @@ const Manager = require('./lib/manager')
 const Engineer = require('./lib/engineer')
 const Intern = require('./lib/intern')
 let teammate = ''
-let responses = ''
+let teamHtml = ''
 let role = ''
 let team = []
 
@@ -44,7 +44,6 @@ const top = `
 `
 
 function start() {
-  console.log("Welcome to the Template Engine!")
   prompt([
     {
       type: "list",
@@ -85,16 +84,11 @@ function start() {
 
 function createTeam() {
   writeFileSync('./output/team.html', top)
-    .then(responses => {
-      console.log(responses)
-      appendFileSync('./output/team.html', responses)
-    })
-    .catch(err => console.log(err))
 }
 
-function createManager() {
+function createManager(responses) {
   let teammate = new Manager(responses.name, responses.role, responses.id, responses.email, responses.office)
-  responses = `
+  teamHtml += `
   <div class="info">
     <div class="card bg-info mb-3" style="width:18rem;">
       <div class="card-body">      
@@ -110,12 +104,13 @@ function createManager() {
   </div>`
   team.push(teammate)
   createTeam()
+  appendFileSync('./output/team.html', teamHtml)
   start()
 }
 
-function createEngineer() {
-  let teammate = new Engineer(responses.name, responses.role, responses.id, responses.title, responses.email, response.github)
-  responses = `
+function createEngineer(responses) {
+  let teammate = new Engineer(responses.name, responses.role, responses.id, responses.title, responses.email, responses.github)
+  teamHtml += `
   <div class="info">
     <div class="card bg-info mb-3" style="width:18rem;">
       <div class="card-body">      
@@ -123,7 +118,6 @@ function createEngineer() {
         <br>Role: ${responses.role}</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${responses.id}</li>
-            <li class="list-group-item">Title: ${responses.title}</li>
             <li class="list-group-item">Email: ${responses.email}</li>
             <li class="list-group-item">Github: ${responses.github}</li>
           </ul>
@@ -132,13 +126,13 @@ function createEngineer() {
   </div>`
   team.push(teammate)
   createTeam()
+  appendFileSync('./output/team.html', teamHtml)
   start()
 }
 
-
 function createIntern(responses) {
-  let teammate = new Intern(responses.name, responses.role, responses.id, responses.email, response.school)
-  responses = `
+  let teammate = new Intern(responses.name, responses.role, responses.id, responses.email, responses.school)
+  teamHtml += `
   <div class="info">
     <div class="card bg-info mb-3" style="width:18rem;">
       <div class="card-body">      
@@ -147,18 +141,22 @@ function createIntern(responses) {
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${responses.id}</li>
             <li class="list-group-item">Email: ${responses.email}</li>
-            <li class="list-group-item">School: ${responses.role}</li>
+            <li class="list-group-item">School: ${responses.school}</li>
           </ul>
       </div>
     </div>
   </div>`
   team.push(teammate)
   createTeam()
+  appendFileSync('./output/team.html', teamHtml)
   start()
 }
 
 function askQuestions(questionList, roleCreate) {
   prompt(questionList)
+    .then(data => {
+      roleCreate(data)
+    })
 }
 
 function questions(roleQuestion) {
