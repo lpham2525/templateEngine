@@ -60,7 +60,7 @@ function start() {
         case "manager":
           roleQuestion = getOffice()
           questionList = questions(roleQuestion)
-          askQuestions(questionList, createManager())
+          askQuestions(questionList, createManager)
           break
         case "engineer":
           roleQuestion = getGithub()
@@ -73,7 +73,7 @@ function start() {
           askQuestions(questionList, createIntern)
           break
         case "None. I'm done.":
-          appendFileSync('team.html',
+          appendFileSync('./output/team.html',
             `</body>
                   </html >`)
         default:
@@ -208,7 +208,7 @@ function getOffice() {
   return {
     type: "input",
     name: "office",
-    message: "If manager has an office, what is the office number?"
+    message: "What is the manager's office number?"
   }
 }
 
@@ -216,7 +216,7 @@ function getGithub() {
   return {
     type: "input",
     name: "github",
-    message: "If engineer has a Github account, what is the engineer's Github username?"
+    message: "What is the engineer's Github username?"
   }
 }
 
@@ -224,7 +224,7 @@ function getSchool() {
   return {
     type: "input",
     name: "school",
-    message: "If the intern is in school, which school does the intern attend?"
+    message: "Which school does the intern attend?"
   }
 }
 
