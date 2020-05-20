@@ -22,6 +22,7 @@ const top = `
   <style>
   body{
     text-align: center;
+    background-image: url('https://fundamentalsofengineering.com/pluginfile.php/1/theme_lambda/slide1image/1562809383/fe_exam_prep%20.jpg');
   }
 
   .bar{
@@ -78,7 +79,7 @@ function start() {
     .catch(err => console.log(err))
 }
 
-function createTeam() {
+function createTop() {
   writeFileSync('./output/team.html', top)
 }
 
@@ -99,7 +100,7 @@ function createManager(responses) {
     </div>
   </div>`
   team.push(teammate)
-  createTeam()
+  createTop()
   appendFileSync('./output/team.html', teamHtml)
   moreTeammates()
 }
@@ -121,7 +122,7 @@ function createEngineer(responses) {
     </div>
   </div>`
   team.push(teammate)
-  createTeam()
+  createTop()
   appendFileSync('./output/team.html', teamHtml)
   moreTeammates()
 }
@@ -143,7 +144,7 @@ function createIntern(responses) {
     </div>
   </div>`
   team.push(teammate)
-  createTeam()
+  createTop()
   appendFileSync('./output/team.html', teamHtml)
   moreTeammates()
 }
