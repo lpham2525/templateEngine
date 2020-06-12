@@ -33,7 +33,7 @@ body{
 
   .bar{
     text-align: center;
-    font-size: 80px;
+    font-size: 60px;
     background-color: salmon;
     color: white;
     width: 100%;
@@ -41,7 +41,7 @@ body{
     }
 
   .info {
-      margin: 50px;
+      margin: 40px;
       display: inline-block;
     }
   </style>
@@ -50,7 +50,7 @@ body{
 <div class="bar">Team Roster</div>
 `
 
-function start () {
+function start() {
   prompt([
     {
       type: 'list',
@@ -85,11 +85,11 @@ function start () {
     .catch(err => console.log(err))
 }
 
-function createTop () {
+function createTop() {
   writeFileSync('./output/team.html', top)
 }
 
-function createManager (responses) {
+function createManager(responses) {
   const teammate = new Manager(responses.name, responses.title, responses.id, responses.email, responses.office)
   manager = `
   <div class="info">
@@ -110,7 +110,7 @@ function createManager (responses) {
   moreTeammates()
 }
 
-function createEngineer (responses) {
+function createEngineer(responses) {
   const teammate = new Engineer(responses.name, responses.title, responses.id, responses.title, responses.email, responses.github)
   const engineer = `
   <div class="info">
@@ -131,7 +131,7 @@ function createEngineer (responses) {
   moreTeammates()
 }
 
-function createIntern (responses) {
+function createIntern(responses) {
   const teammate = new Intern(responses.name, responses.title, responses.id, responses.email, responses.school)
   const intern = `
   <div class="info">
@@ -152,14 +152,14 @@ function createIntern (responses) {
   moreTeammates()
 }
 
-function askQuestions (questionList, roleCreate) {
+function askQuestions(questionList, roleCreate) {
   prompt(questionList)
     .then(data => {
       roleCreate(data)
     })
 }
 
-function questions (roleQuestion) {
+function questions(roleQuestion) {
   const questions = [
     {
       type: 'input',
@@ -208,7 +208,7 @@ function questions (roleQuestion) {
   return questions
 }
 
-function getOffice () {
+function getOffice() {
   return {
     type: 'input',
     name: 'office',
@@ -216,7 +216,7 @@ function getOffice () {
   }
 }
 
-function getGithub () {
+function getGithub() {
   return {
     type: 'input',
     name: 'github',
@@ -224,7 +224,7 @@ function getGithub () {
   }
 }
 
-function getSchool () {
+function getSchool() {
   return {
     type: 'input',
     name: 'school',
@@ -232,7 +232,7 @@ function getSchool () {
   }
 }
 
-function moreTeammates () {
+function moreTeammates() {
   prompt([
     {
       type: 'list',
